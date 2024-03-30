@@ -1,0 +1,69 @@
+﻿<UserControl x:Class="LabelImageLibrary.Displays.LabelListView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:LabelImageLibrary.Displays"
+             xmlns:control="clr-namespace:LabelImageLibrary.Controls"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="400">
+    <Grid>
+        <GroupBox Header="TAGS">
+            <StackPanel Orientation="Vertical">
+                <StackPanel.Resources>
+                    <Style TargetType="TextBlock">
+                        <Setter Property="Foreground" Value="Gray"/>
+                        <Setter Property="Margin" Value="2"/>
+                    </Style>
+                    <Style TargetType="{x:Type control:TagEditBox}">
+                        <Setter Property="Foreground" Value="Gray"/>
+                        <Setter Property="Margin" Value="2"/>
+                        <Setter Property="Padding" Value="2,8"/>
+                    </Style>
+                </StackPanel.Resources>
+                <TextBlock>Type in a tag:</TextBlock>
+                <control:TagEditBox Text="{Binding TagName}" BehaviorCollection="{Binding TagEditBehaviorCollection}"/>
+                <TextBlock Margin="2,9,2,2">Select a tag or create one:</TextBlock>
+                <ItemsControl ItemsSource="{Binding LabelCollection}">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <WrapPanel/>
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <RadioButton Background="{Binding Color}" 
+                                         Margin="2" 
+                                         GroupName="Label"
+                                         IsChecked="{Binding IsChoosen}"
+                                         Style="{StaticResource TagRadioButton}"
+                                         >
+                                <RadioButton.ContextMenu>
+                                    <ContextMenu >
+                                        <Separator>
+                                            <Separator.Template>
+                                                <ControlTemplate TargetType="Separator">
+                                                    <StackPanel>
+                                                        <TextBlock Margin="35,3,3,3">
+                                                            <Run Foreground="Gray">Tag : </Run>
+                                                            <Run Text="{Binding Name}"
+                                                                 FontWeight="SemiBold"
+                                                                 Foreground="{Binding Color}"></Run>
+                                                        </TextBlock>
+                                                        <Separator/>
+                                                    </StackPanel>
+                                                </ControlTemplate>
+                                            </Separator.Template>
+                                        </Separator>
+                                        <MenuItem Header="Modify" Command="{Binding ModifyCommand}"/>
+                                        <MenuItem Header="Delete" Command="{Binding DeleteCommand}"/>
+                                    </ContextMenu>
+                                </RadioButton.ContextMenu>
+                            </RadioButton>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </StackPanel>
+        </GroupBox>
+    </Grid>
+</UserControl>

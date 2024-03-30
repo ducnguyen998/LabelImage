@@ -1,0 +1,48 @@
+﻿<UserControl x:Class="LabelImageLibrary.Displays.InteractiveDisplay"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:LabelImageLibrary.Displays"
+             xmlns:control="clr-namespace:LabelImageLibrary.Controls"
+             xmlns:display="clr-namespace:LabelImageLibrary.Displays"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.Resources>
+        <DataTemplate DataType="{x:Type display:AnnotationListViewmodel}">
+            <display:AnnotationListView/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type display:ImageEditorViewmodel}">
+            <display:ImageEditorView/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type display:LabelListViewmodel}">
+            <display:LabelListView/>
+        </DataTemplate>
+    </UserControl.Resources>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="4*"/>
+            <ColumnDefinition Width="1*"/>
+        </Grid.ColumnDefinitions>
+        <Grid Grid.Column="0">
+            <!--IMAGE EDITOR-->
+            <Grid>
+                <ContentPresenter Content="{Binding ImageEditorDisplay}"/>
+            </Grid>
+        </Grid>
+        <Grid Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <!--LABEL LIST-->
+            <Grid Grid.Row="0">
+                <ContentPresenter Content="{Binding LabelListDisplay}"/>
+            </Grid>
+            <!--ANNOTATION LIST-->
+            <Grid Grid.Row="1">
+                <ContentPresenter Content="{Binding AnnotationListDisplay}"/>
+            </Grid>
+        </Grid>
+    </Grid>
+</UserControl>
